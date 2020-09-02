@@ -1,39 +1,34 @@
-# coding: utf-8
-#from and_gate import AND
-#from or_gate import OR
-#from nand_gate import NAND
-
 import numpy as np
 
+tflist=[[0,0],[0,1],[1,0],[1,1]]
 def AND(x1,x2):
-	x=np.array([x1,x2])
-	w=np.array([0.5,0.5])
-	b=-0.7
-	tmp=np.sum(x*w)+b
-	return 0 if tmp<=0 else 1
+    x=np.array([x1,x2])
+    w=np.array([0.5,0.5])
+    b=-0.7
+    tmp=np.sum(x*w)+b
+    return 0 if tmp<0 else 1
 
 def OR(x1,x2):
-	x=np.array([x1,x2])
-	w=np.array([0.5,0.5])
-	b=-0.2
-	tmp=np.sum(x*w)+b
-	return 0 if tmp<=0 else 1
+    x=np.array([x1,x2])
+    w=np.array([0.5,0.5])
+    b=-0.2
+    tmp=np.sum(w*x)+b
+    return 0 if tmp<0 else 1
 
 def NAND(x1,x2):
-	x=np.array([x1,x2])
-	w=np.array([-0.5,-0.5])
-	b=0.7
-	tmp=np.sum(x*w)+b
-	return 0 if tmp<=0 else 1
+    x=np.array([x1,x2])
+    w=np.array([-0.5,-0.5])
+    b=0.7
+    tmp=np.sum(x*w)+b
+    return 0 if tmp<0 else 1
 
+def XOR(x1,x2):
+    x=NAND(x1,x2)
+    y=OR(x1,x2)
+    return AND(x,y)
 
-def XOR(x1, x2):
-    s1 = NAND(x1, x2)
-    s2 = OR(x1, x2)
-    y = AND(s1, s2)
-    return y
-
-if __name__ == '__main__':
-   for xs in [(0, 0), (1, 0), (0, 1), (1, 1)]:
-       y = XOR(xs[0], xs[1])
-       print(str(xs) + " -> " + str(y))
+for ls in tflist:
+    print("AND"+str(ls)+"---"+str(AND(ls[0],ls[1])))
+    print("OR"+str(ls)+"---"+str(OR(ls[0],ls[1])))
+    print("NAND"+str(ls)+"---"+str(NAND(ls[0],ls[1])))
+    print("XOR"+str(ls)+"---"+str(XOR(ls[0],ls[1])))
